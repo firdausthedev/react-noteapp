@@ -1,0 +1,42 @@
+{
+  "name": "react-note-app",
+  "homepage": "http://firdausthedev.github.io/react-noteapp",
+  "private": true,
+  "version": "0.1.0",
+  "description": "react note app",
+  "main": "index.js",
+  "keywords": [
+    "react",
+    "note app",
+    "context",
+    "vitejs"
+  ],
+  "author": "firdausthedev",
+  "license": "ISC",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "deploy": "gh-pages -d dist",
+    "format": "prettier --write \"src/**/*.{js,jsx}\"",
+    "lint": "eslint \"src/**/*.{js,jsx}\" --quiet",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "styled-components": "^5.3.6"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^3.1.0",
+    "eslint": "^8.24.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.6.1",
+    "eslint-plugin-react": "^7.31.8",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "gh-pages": "^5.0.0",
+    "prettier": "2.8.3",
+    "vite": "^4.1.1"
+  }
+}
