@@ -1,5 +1,6 @@
 import UserIcon from "../../assets/user-icon.png";
 import { useState, useContext } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import NotesContext from "../../context/NoteContext";
 
 const SideMenu = () => {
@@ -33,41 +34,48 @@ const SideMenu = () => {
           <div></div>
         </div>
         {isSideModalOpen && (
-          <div className="menu">
-            <button
-              className="close-btn"
-              onClick={() => {
-                setIsSideModalOpen(false);
-              }}>
-              &times;
-            </button>
-            <div className="menu-item">
-              <p>Dark Mode</p>
-              <div className="dark-mode">
-                <label className="theme-switch" htmlFor="checkbox">
-                  <input
-                    type="checkbox"
-                    id="checkbox"
-                    onChange={handleDarkMode}
-                    checked={theme == "dark" ? true : false}
-                  />
-                  <div className="slider round"></div>
-                </label>
+          <AnimatePresence>
+            <motion.div
+              className="menu"
+              initial={{ left: "-500px" }}
+              animate={{ left: 0 }}
+              exit={{ left: "-500px" }}
+              transition={{ duration: 0 }}>
+              <button
+                className="close-btn"
+                onClick={() => {
+                  setIsSideModalOpen(false);
+                }}>
+                &times;
+              </button>
+              <div className="menu-item">
+                <p>Dark Mode</p>
+                <div className="dark-mode">
+                  <label className="theme-switch" htmlFor="checkbox">
+                    <input
+                      type="checkbox"
+                      id="checkbox"
+                      onChange={handleDarkMode}
+                      checked={theme == "dark" ? true : false}
+                    />
+                    <div className="slider round"></div>
+                  </label>
+                </div>
               </div>
-            </div>
-            <div className="menu-item bottom">
-              <img src={UserIcon} alt="dev icon" />
-              <div className="dev-info">
-                <h2>firdausthedev</h2>
-                <a
-                  href="https://github.com/firdausthedev"
-                  rel="noopener noreferrer"
-                  target="_blank">
-                  https://github.com/firdausthedev
-                </a>
+              <div className="menu-item bottom">
+                <img src={UserIcon} alt="dev icon" />
+                <div className="dev-info">
+                  <h2>firdausthedev</h2>
+                  <a
+                    href="https://github.com/firdausthedev"
+                    rel="noopener noreferrer"
+                    target="_blank">
+                    https://github.com/firdausthedev
+                  </a>
+                </div>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </AnimatePresence>
         )}
       </div>
     </div>

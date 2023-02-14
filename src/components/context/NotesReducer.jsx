@@ -55,6 +55,7 @@ const notesReducer = (state, action) => {
       return {
         ...state,
         noteEdit: action.payload.note,
+        isNoteModalOpen: true,
       };
     case "OPEN_NOTE_MODEL":
       return {

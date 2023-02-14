@@ -5,7 +5,6 @@ const NoteItem = ({ note }) => {
   const { dispatch } = useContext(NotesContext);
 
   const handleEdit = note => {
-    dispatch({ type: "OPEN_NOTE_MODEL" });
     dispatch({
       type: "SET_EDIT_MODE",
       payload: { note: { note: note, edit: true } },
