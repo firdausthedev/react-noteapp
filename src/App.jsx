@@ -1,4 +1,4 @@
-import Header from "./components/layout/Header/Header";
+import Header from "./components/layout/header/Header";
 import NoteModal from "./components/note/NoteModal";
 import NoteList from "./components/note/NoteList";
 

@@ -33,14 +33,15 @@ const SideMenu = () => {
         <div className="hamburger">
           <div></div>
         </div>
-        {isSideModalOpen && (
-          <AnimatePresence>
+        <AnimatePresence>
+          {isSideModalOpen && (
             <motion.div
               className="menu"
-              initial={{ left: "-500px" }}
+              key="side-menu"
+              initial={{ left: "-100vw" }}
               animate={{ left: 0 }}
-              exit={{ left: "-500px" }}
-              transition={{ duration: 0 }}>
+              exit={{ left: "-100vw" }}
+              transition={{ duration: 0.2 }}>
               <button
                 className="close-btn"
                 onClick={() => {
@@ -75,8 +76,8 @@ const SideMenu = () => {
                 </div>
               </div>
             </motion.div>
-          </AnimatePresence>
-        )}
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );
