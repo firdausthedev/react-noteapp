@@ -1,13 +1,14 @@
 import { useContext } from "react";
 import NotesContext from "../context/NoteContext";
+import { Note, NoteActionType } from "./../context/NoteType";
 
-const NoteItem = ({ note }) => {
+const NoteItem = ({ note }: { note: Note }) => {
   const { dispatch } = useContext(NotesContext);
 
-  const handleEdit = note => {
+  const handleEdit = (note: Note) => {
     dispatch({
-      type: "SET_EDIT_MODE",
-      payload: { note: { note: note, edit: true } },
+      type: NoteActionType.SET_EDIT_MODE,
+      payload: { note: note, edit: true },
     });
   };
 

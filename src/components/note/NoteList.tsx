@@ -1,9 +1,11 @@
 import NoteItem from "./NoteItem";
 import { useContext } from "react";
 import NotesContext from "../context/NoteContext";
+import { NoteActionType } from "../context/NoteType";
 
 const NoteList = () => {
-  const { notes, searchNote, dispatch } = useContext(NotesContext);
+  const { state, dispatch } = useContext(NotesContext);
+
   return (
     <main>
       <section id="tags">
@@ -17,16 +19,18 @@ const NoteList = () => {
         <button
           id="btn-add"
           className="btn btn-active shadow"
-          onClick={() => dispatch({ type: "OPEN_NOTE_MODEL" })}>
+          onClick={() => dispatch({ type: NoteActionType.OPEN_NOTE_MODEL })}>
           + <span>Add a new note</span>
         </button>
       </section>
       <section id="notes">
-        {searchNote.search &&
-          searchNote.notes.map(note => <NoteItem key={note.id} note={note} />)}
+        {state.searchTempNotes.search &&
+          state.searchTempNotes.notes.map(note => (
+            <NoteItem key={note.id} note={note} />
+          ))}
 
-        {!searchNote.search &&
-          notes.map(note => {
+        {!state.searchTempNotes.search &&
+          state.notes.map(note => {
             return <NoteItem key={note.id} note={note} />;
           })}
       </section>

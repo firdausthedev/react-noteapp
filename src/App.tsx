@@ -6,11 +6,11 @@ import { useContext } from "react";
 import NotesContext from "./components/context/NoteContext";
 
 function App() {
-  const { isNoteModalOpen } = useContext(NotesContext);
+  const { state } = useContext(NotesContext);
 
   return (
     <div className="container">
-      {isNoteModalOpen && <NoteModal />}
+      {state.isNoteModalOpen && <NoteModal />}
       <Header />
       <NoteList />
     </div>

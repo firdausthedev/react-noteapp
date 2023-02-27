@@ -2,20 +2,21 @@ import UserIcon from "../../assets/user-icon.png";
 import { useState, useContext } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import NotesContext from "../../context/NoteContext";
+import { NoteActionType } from "../../context/NoteType";
 
 const SideMenu = () => {
-  const { theme, dispatch } = useContext(NotesContext);
+  const { state, dispatch } = useContext(NotesContext);
   const [isSideModalOpen, setIsSideModalOpen] = useState(false);
 
-  const handleDarkMode = e => {
+  const handleDarkMode = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked) {
       document.documentElement.setAttribute("data-theme", "dark");
       localStorage.setItem("theme", "dark");
-      dispatch({ type: "SET_DARK_THEME" });
+      dispatch({ type: NoteActionType.SET_DARK_THEME });
     } else {
       document.documentElement.setAttribute("data-theme", "light");
       localStorage.setItem("theme", "light");
-      dispatch({ type: "SET_LIGHT_THEME" });
+      dispatch({ type: NoteActionType.SET_LIGHT_THEME });
     }
   };
 
@@ -57,7 +58,7 @@ const SideMenu = () => {
                       type="checkbox"
                       id="checkbox"
                       onChange={handleDarkMode}
-                      checked={theme == "dark" ? true : false}
+                      checked={state.theme == "dark" ? true : false}
                     />
                     <div className="slider round"></div>
                   </label>

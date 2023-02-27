@@ -1,8 +1,9 @@
 import { useContext } from "react";
 import NotesContext from "../../context/NoteContext";
 import { handleSearch } from "../../context/NotesAction";
+import { NoteActionType } from "../../context/NoteType";
 const Search = () => {
-  const { notes, searchText, dispatch } = useContext(NotesContext);
+  const { state, dispatch } = useContext(NotesContext);
 
   return (
     <div id="header-search" className="shadow header-box">
@@ -11,18 +12,18 @@ const Search = () => {
         name="search"
         placeholder="Search"
         autoComplete="off"
-        value={searchText}
+        value={state.searchText}
         onChange={e => {
           dispatch({
-            type: "SEARCH_NOTE",
+            type: NoteActionType.SEARCH_NOTE,
             payload: {
-              notes: handleSearch(e, notes),
+              notes: handleSearch(e, state.notes),
               searchText: e.target.value,
             },
           });
           if (e.target.value == "") {
             dispatch({
-              type: "CLEAR_SEARCH_NOTE",
+              type: NoteActionType.CLEAR_SEARCH_NOTE,
             });
           }
         }}

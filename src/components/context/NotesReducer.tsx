@@ -1,11 +1,14 @@
-const notesReducer = (state, action) => {
+import { NoteActions, NoteState } from "./NoteType";
+
+const notesReducer = (state: NoteState, action: NoteActions): NoteState => {
   switch (action.type) {
     case "ADD_NOTE":
       return {
         ...state,
         isNoteModalOpen: false,
         notes: action.payload.notes,
-        searchNote: {
+        searchTempNotes: {
+          notes: [],
           search: false,
         },
         searchText: "",
@@ -16,7 +19,7 @@ const notesReducer = (state, action) => {
         isNoteModalOpen: false,
         notes: action.payload.notes,
         noteEdit: {
-          note: {},
+          note: null,
           edit: false,
         },
       };
@@ -26,10 +29,11 @@ const notesReducer = (state, action) => {
         isNoteModalOpen: false,
         notes: action.payload.notes,
         noteEdit: {
-          note: {},
+          note: null,
           edit: false,
         },
-        searchNote: {
+        searchTempNotes: {
+          notes: [],
           search: false,
         },
         searchText: "",
@@ -37,7 +41,7 @@ const notesReducer = (state, action) => {
     case "SEARCH_NOTE":
       return {
         ...state,
-        searchNote: {
+        searchTempNotes: {
           notes: action.payload.notes,
           search: true,
         },
@@ -46,7 +50,7 @@ const notesReducer = (state, action) => {
     case "CLEAR_SEARCH_NOTE":
       return {
         ...state,
-        searchNote: {
+        searchTempNotes: {
           notes: [],
           search: false,
         },
@@ -54,7 +58,10 @@ const notesReducer = (state, action) => {
     case "SET_EDIT_MODE":
       return {
         ...state,
-        noteEdit: action.payload.note,
+        noteEdit: {
+          note: action.payload.note,
+          edit: action.payload.edit,
+        },
         isNoteModalOpen: true,
       };
     case "OPEN_NOTE_MODEL":
@@ -67,7 +74,7 @@ const notesReducer = (state, action) => {
         ...state,
         isNoteModalOpen: false,
         noteEdit: {
-          note: {},
+          note: null,
           edit: false,
         },
       };

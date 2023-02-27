@@ -1,21 +1,28 @@
 import { useState, useContext } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import NotesContext from "../context/NoteContext";
-import { handleAddNote, handleUpdateNote } from "../context/NotesAction";
-import { handleDeleteNote } from "./../context/NotesAction";
+import {
+  handleAddNote,
+  handleUpdateNote,
+  handleDeleteNote,
+} from "../context/NotesAction";
+import { NoteActionType } from "../context/NoteType";
 
 const NoteModal = () => {
-  const { notes, noteEdit, dispatch } = useContext(NotesContext);
-  const [title, setTitle] = useState(noteEdit.edit ? noteEdit.note.title : "");
+  /* eslint-disable  @typescript-eslint/no-non-null-assertion */
+  const { state, dispatch } = useContext(NotesContext);
+  const [title, setTitle] = useState(
+    state.noteEdit.edit ? state.noteEdit.note!.title : "",
+  );
   const [content, setContent] = useState(
-    noteEdit.edit ? noteEdit.note.content : "",
+    state.noteEdit.edit ? state.noteEdit.note!.content : "",
   );
 
-  const handleTitle = e => {
+  const handleTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
 
-  const handleContent = e => {
+  const handleContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
   };
 
@@ -32,7 +39,7 @@ const NoteModal = () => {
             <button
               className="close"
               onClick={() => {
-                dispatch({ type: "CLOSE_NOTE_MODEL" });
+                dispatch({ type: NoteActionType.CLOSE_NOTE_MODEL });
               }}>
               &times;
             </button>
@@ -52,23 +59,25 @@ const NoteModal = () => {
             <textarea
               name="content"
               id="modal-form-content"
-              cols="30"
-              rows="10"
+              cols={30}
+              rows={10}
               placeholder="Write something..."
               autoComplete="off"
               value={content}
-              onChange={e => {
+              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
                 handleContent(e);
               }}></textarea>
             <div id="buttons">
-              {noteEdit.edit === false ? (
+              {state.noteEdit.edit === false ? (
                 <button
                   id="add-btn"
                   className="btn btn-active shadow"
                   onClick={() => {
                     dispatch({
-                      type: "ADD_NOTE",
-                      payload: { notes: handleAddNote(title, content, notes) },
+                      type: NoteActionType.ADD_NOTE,
+                      payload: {
+                        notes: handleAddNote(title, content, state.notes),
+                      },
                     });
                   }}>
                   Add
@@ -80,9 +89,12 @@ const NoteModal = () => {
                     className="btn btn-delete shadow"
                     onClick={() => {
                       dispatch({
-                        type: "DELETE_NOTE",
+                        type: NoteActionType.DELETE_NOTE,
                         payload: {
-                          notes: handleDeleteNote(notes, noteEdit.note.id),
+                          notes: handleDeleteNote(
+                            state.notes,
+                            state.noteEdit.note!.id,
+                          ),
                         },
                       });
                     }}>
@@ -93,11 +105,11 @@ const NoteModal = () => {
                     className="btn btn-edit shadow"
                     onClick={() => {
                       dispatch({
-                        type: "UPDATE_NOTE",
+                        type: NoteActionType.UPDATE_NOTE,
                         payload: {
                           notes: handleUpdateNote(
-                            notes,
-                            noteEdit.note.id,
+                            state.notes,
+                            state.noteEdit.note!.id,
                             title,
                             content,
                           ),

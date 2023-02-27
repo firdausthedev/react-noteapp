@@ -1,3 +1,5 @@
+import { Note } from "./NoteType";
+
 export const loadTheme = () => {
   const currentTheme = localStorage.getItem("theme")
     ? localStorage.getItem("theme")
@@ -21,7 +23,11 @@ export const loadNotes = () => {
   }
 };
 
-export const handleAddNote = (title, content, notes) => {
+export const handleAddNote = (
+  title: string,
+  content: string,
+  notes: Note[],
+) => {
   const tags = [
     "circle-red",
     "circle-blue",
@@ -38,8 +44,13 @@ export const handleAddNote = (title, content, notes) => {
   return [note, ...notes];
 };
 
-export const handleUpdateNote = (notes, id, title, content) => {
-  const editedNotes = notes.map(note => {
+export const handleUpdateNote = (
+  notes: Note[],
+  id: string,
+  title: string,
+  content: string,
+) => {
+  const editedNotes = notes.map((note: Note) => {
     if (note.id == id) {
       note.title = title;
       note.content = content;
@@ -50,13 +61,16 @@ export const handleUpdateNote = (notes, id, title, content) => {
   return [...editedNotes];
 };
 
-export const handleDeleteNote = (notes, id) => {
+export const handleDeleteNote = (notes: Note[], id: string) => {
   const filteredNotes = notes.filter(note => note.id != id);
   localStorage.setItem("notes", JSON.stringify([...filteredNotes]));
   return [...filteredNotes];
 };
 
-export const handleSearch = (e, notes) => {
+export const handleSearch = (
+  e: React.ChangeEvent<HTMLInputElement>,
+  notes: Note[],
+) => {
   const filteredNotes = notes.filter(note =>
     note.title.includes(e.target.value),
   );
